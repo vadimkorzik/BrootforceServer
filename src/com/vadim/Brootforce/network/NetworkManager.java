@@ -22,7 +22,7 @@ public class NetworkManager {
 
     public static final int PORT = 19191;
 
-    private SocketAddress address1;
+    private SocketAddress address;
     private ServerSocketChannel  serverChannel;
     private SocketChannel socketChannel;
     Selector selector;
