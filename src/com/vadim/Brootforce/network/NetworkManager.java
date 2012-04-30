@@ -24,7 +24,7 @@ public class NetworkManager {
     private ServerSocketChannel serverSocketChannel;
     Selector selector;
 
-    private final ByteBuffer buffer = ByteBuffer.allocate(16384);
+    private final ByteBuffer buffer = ByteBuffer.allocate(16385);
 
     public NetworkManager() {
     }
