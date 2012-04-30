@@ -33,29 +33,49 @@ public class NetworkManager {
     }
 
     public void open() throws IOException {
-        selector = Selector.open();
-        serverChannel = ServerSocketChannel.open();
-        serverChannel.configureBlocking(false);
-        serverChannel.socket().bind(new InetSocketAddress(PORT));
-        log(serverChannel.toString());
-        serverChannel.register(selector, SelectionKey.OP_ACCEPT);
+        /*  selector = Selector.open();
+    serverChannel = ServerSocketChannel.open();
+    serverChannel.configureBlocking(false);
+    serverChannel.socket().bind(new InetSocketAddress(PORT));
+    log(serverChannel.getLocalAddress().toString());
+    serverChannel.register(selector, SelectionKey.OP_ACCEPT);
 
+
+    while (true) {
+        selector.select();
+
+        for (SelectionKey sk : selector.selectedKeys()) {
+            if (!sk.isValid()) {
+                continue;
+            }
+
+            if (sk.isAcceptable()) {
+                accept(sk);
+            } else if (sk.isReadable()) {
+                read(sk);
+            } else if (sk.isWritable()) {
+                write(sk);
+            }
+            selector.selectedKeys().remove(sk);
+        }
+    }    */
+
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+
+        serverSocketChannel.socket().bind(new InetSocketAddress(19191));
+        serverSocketChannel.configureBlocking(false);
 
         while (true) {
-            selector.select();
+            SocketChannel socketChannel =
+                    serverSocketChannel.accept();
 
-            for (SelectionKey sk : selector.selectedKeys()) {
-                if (!sk.isValid()) {
-                    continue;
-                }
-                if (sk.isAcceptable()) {
-                    accept(sk);
-                } else if (sk.isWritable()) {
-                    write(sk);
-                } else if (sk.isReadable()) {
-                    read(sk);
-                }
-                selector.selectedKeys().remove(sk);
+            if (socketChannel != null) {
+                socketChannel.read(readBuffer);
+                readBuffer.flip();
+                StringBuilder sb = new StringBuilder();
+                while (readBuffer.hasRemaining())
+                    sb.append(readBuffer.getInt()).append(" ");
+                log("# Request: " + sb);
             }
         }
     }
@@ -115,8 +135,8 @@ public class NetworkManager {
         }
 
         socketChannel.register(selector, SelectionKey.OP_WRITE);
-        socketChannel.close();
-        selectionKey.cancel();
+        //socketChannel.close();
+        //selectionKey.cancel();
     }
 
     private void write(SelectionKey selectionKey) throws IOException {
@@ -134,8 +154,8 @@ public class NetworkManager {
         socketChannel.write(writeBuffer);
 
 
-        //socketChannel.register(selector, SelectionKey.OP_ACCEPT);
-        // socketChannel.close();
+        socketChannel.register(selector, SelectionKey.OP_ACCEPT);
+        socketChannel.close();
         selectionKey.cancel();
     }
 }
