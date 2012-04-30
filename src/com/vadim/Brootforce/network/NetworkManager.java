@@ -139,7 +139,9 @@ public class NetworkManager {
 
         System.out.println(" >read: " + buffer.get(0) + " " + buffer.get(1) + " " + buffer.get(2));
 
-
+        buffer.put(0, (byte) 1);
+        buffer.put(1, (byte) 2);
+        buffer.put(2, (byte) 3);
 
         sc.write(buffer);
 
