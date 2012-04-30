@@ -125,7 +125,7 @@ public class NetworkManager {
         }
 
         // Simple rot-13 encryption
-        for (int i = 0; i < buffer.limit(); ++i) {
+       /* for (int i = 0; i < buffer.limit(); ++i) {
             byte b = buffer.get(i);
 
             if ((b >= 'a' && b <= 'm') || (b >= 'A' && b <= 'M')) {
@@ -135,7 +135,9 @@ public class NetworkManager {
             }
 
             buffer.put(i, b);
-        }
+        }     */
+
+
 
         sc.write(buffer);
 
