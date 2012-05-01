@@ -18,7 +18,7 @@ import static com.vadim.Brootforce.Logger.log;
 /**
  * User: Vadim | Date: 14.04.12 | Time: 22:43
  */
-public class NetworkManager {
+public class NetworkManager implements Runnable {
 
     public static final int BUFFER_SIZE = 1024;
 
@@ -36,7 +36,7 @@ public class NetworkManager {
         this.port = port;
     }
 
-    public void openServer() throws IOException {
+    public void openServer() {
         try {
             selector = Selector.open();
             serverSocketChannel = ServerSocketChannel.open();
@@ -146,4 +146,8 @@ public class NetworkManager {
         return true;
     }
 
+    @Override
+    public void run() {
+        this.openServer();
+    }
 }
