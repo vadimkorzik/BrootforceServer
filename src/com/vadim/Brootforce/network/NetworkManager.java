@@ -20,20 +20,27 @@ import static com.vadim.Brootforce.Logger.log;
  */
 public class NetworkManager {
 
-    public static final int PORT = 19191;
+    public static final int BUFFER_SIZE = 1024;
+
+    private int port;
     private ServerSocketChannel serverSocketChannel;
     Selector selector;
 
-    private final ByteBuffer buffer = ByteBuffer.allocate(16385);
+    private final ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
 
     public NetworkManager() {
+        port = 19191;
     }
 
-    public void open() throws IOException {
+    public NetworkManager(int port) {
+        this.port = port;
+    }
+
+    public void openServer() throws IOException {
         try {
             selector = Selector.open();
             serverSocketChannel = ServerSocketChannel.open();
-            serverSocketChannel.socket().bind(new InetSocketAddress(PORT));
+            serverSocketChannel.socket().bind(new InetSocketAddress(port));
             serverSocketChannel.configureBlocking(false);
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
@@ -106,11 +113,13 @@ public class NetworkManager {
                 selector.close();
                 serverSocketChannel.socket().close();
                 serverSocketChannel.close();
-
             } catch (Exception e) {
                 // do nothing - server failed
             }
         }
+    }
+
+    public void closeServer() {
 
     }
 

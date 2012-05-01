@@ -11,6 +11,6 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
         NetworkManager nm = new NetworkManager();
-        nm.open();
+        nm.openServer();
     }
 }
