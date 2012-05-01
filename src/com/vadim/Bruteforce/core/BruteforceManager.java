@@ -7,6 +7,10 @@ public class BruteforceManager {
 
     private int countIntervals;
     private int currentInterval;
+
+    /**
+     * last password to bruteforce
+     */
     private String lastPassword = "ZZZZZZ";
 
     public BruteforceManager(int countIntervals, String lastPassword) {
