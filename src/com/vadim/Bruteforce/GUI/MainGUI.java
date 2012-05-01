@@ -1,4 +1,4 @@
-package com.vadim.Brootforce.GUI;
+package com.vadim.Bruteforce.GUI;
 
 import javax.swing.*;
 

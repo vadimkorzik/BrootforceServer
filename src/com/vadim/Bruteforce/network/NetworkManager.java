@@ -1,4 +1,4 @@
-package com.vadim.Brootforce.network;
+package com.vadim.Bruteforce.network;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -10,10 +10,6 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
-
-import com.vadim.Brootforce.Logger;
-
-import static com.vadim.Brootforce.Logger.log;
 
 /**
  * User: Vadim | Date: 14.04.12 | Time: 22:43

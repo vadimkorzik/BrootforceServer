@@ -1,6 +1,6 @@
-package com.vadim.Brootforce;
+package com.vadim.Bruteforce;
 
-import com.vadim.Brootforce.network.NetworkManager;
+import com.vadim.Bruteforce.network.NetworkManager;
 
 import java.io.IOException;
 
