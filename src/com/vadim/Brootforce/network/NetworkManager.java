@@ -124,19 +124,6 @@ public class NetworkManager {
             return false;
         }
 
-        // Simple rot-13 encryption
-        /* for (int i = 0; i < buffer.limit(); ++i) {
-       byte b = buffer.get(i);
-
-       if ((b >= 'a' && b <= 'm') || (b >= 'A' && b <= 'M')) {
-           b += 13;
-       } else if ((b >= 'n' && b <= 'z') || (b >= 'N' && b <= 'Z')) {
-           b -= 13;
-       }
-
-       buffer.put(i, b);
-   }     */
-
         System.out.println(" >read: " + buffer.get(0) + " " + buffer.get(1) + " " + buffer.get(2));
 
         buffer.put(0, (byte) 1);
