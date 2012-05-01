@@ -17,6 +17,7 @@ import java.util.Iterator;
 public class NetworkManager implements Runnable {
 
     public static final int BUFFER_SIZE = 1024;
+    public static final int DEFAULT_PORT = 19191;
 
     private int port;
     private ServerSocketChannel serverSocketChannel;
@@ -25,7 +26,7 @@ public class NetworkManager implements Runnable {
     private final ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
 
     public NetworkManager() {
-        port = 19191;
+        port = DEFAULT_PORT;
     }
 
     public NetworkManager(int port) {
@@ -116,7 +117,7 @@ public class NetworkManager implements Runnable {
     }
 
     public void closeServer() {
-
+        // TODO closeServer
     }
 
     private boolean processInput(SocketChannel sc) throws IOException {
