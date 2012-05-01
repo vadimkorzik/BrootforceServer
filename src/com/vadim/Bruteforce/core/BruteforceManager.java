@@ -7,9 +7,11 @@ public class BruteforceManager {
 
     private int countIntervals;
     private int currentInterval;
+    private String lastPassword = "ZZZZZZ";
 
-    public BruteforceManager(int countIntervals) {
+    public BruteforceManager(int countIntervals, String lastPassword) {
         this.countIntervals = countIntervals;
+        this.lastPassword = lastPassword;
         currentInterval = 0;
     }
 
@@ -23,5 +25,9 @@ public class BruteforceManager {
 
     public boolean freeIntervals() {
         return currentInterval < countIntervals;
+    }
+
+    public void setLastPassword(String lastPassword) {
+        this.lastPassword = lastPassword;
     }
 }

@@ -120,6 +120,11 @@ public class NetworkManager implements Runnable {
         // TODO closeServer
     }
 
+    /**
+     * processing of the request
+     *
+     * @return successfully process
+     */
     private boolean processInput(SocketChannel sc) throws IOException {
         buffer.clear();
         sc.read(buffer);
