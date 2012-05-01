@@ -2,6 +2,8 @@ package com.vadim.Bruteforce.core;
 
 /**
  * User: Vadim | Date: 14.04.12 | Time: 21:52
+ *
+ * @author Vadim
  */
 public class BruteforceManager {
 
