@@ -9,7 +9,7 @@ public class Logger {
     }
 
     private String getCurrentTime() {
-        return new java.text.SimpleDateFormat("yyyy.MM.dd '-' hh:mm:ss").format(java.util.Calendar.getInstance().getTime());
+        return new java.text.SimpleDateFormat("dd.MM.yyyy '-' HH:mm:ss").format(java.util.Calendar.getInstance().getTime());
     }
 
     private void simpleMessage(String type, String msg) {
