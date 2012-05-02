@@ -17,4 +17,5 @@ public class Commands {
     // Codes: server -> client
     public static final byte MESSAGE_OF_STOP = 32;
 
+
 }
