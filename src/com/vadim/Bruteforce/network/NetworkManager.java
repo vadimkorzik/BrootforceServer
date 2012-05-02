@@ -1,6 +1,7 @@
 package com.vadim.Bruteforce.network;
 
 import com.vadim.Bruteforce.Logger;
+import com.vadim.Bruteforce.core.BruteforceManager;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -25,15 +26,18 @@ public class NetworkManager implements Runnable {
     private ServerSocketChannel serverSocketChannel;
     Selector selector;
     Logger log = new Logger();
+    BruteforceManager bruteforceManager;
 
     private final ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
 
-    public NetworkManager() {
+    public NetworkManager(BruteforceManager bruteforceManager) {
         port = DEFAULT_PORT;
+        this.bruteforceManager = bruteforceManager;
     }
 
-    public NetworkManager(int port) {
+    public NetworkManager(int port, BruteforceManager bruteforceManager) {
         this.port = port;
+        this.bruteforceManager = bruteforceManager;
     }
 
     public void openServer() {
