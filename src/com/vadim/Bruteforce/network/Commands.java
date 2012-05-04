@@ -17,13 +17,15 @@ public class Commands {
     public static final byte REQUEST_FOR_LASTPASSWORD = 4;
     public static final byte REQUEST_FOR_INTERVAL = 8;
     public static final byte MESSAGE_OF_SUCCESSFUL_BRUTE = 16;
+    public static final byte REQUEST_FOR_SHA1HASH = 32;
 
     // Codes: server -> client
-    public static final byte MESSAGE_OF_STOP = 32;
+    public static final byte MESSAGE_OF_STOP = 64;
 
     /**
      * Copy String to ByteBuffer from 2 index <b>(not 0)</b> .
-     * Automatic allocate memory
+     * Automatic allocate memory.
+     * Length of str <= 127 !!
      *
      * @param str    String to send
      * @param buffer buffer to send
@@ -31,17 +33,18 @@ public class Commands {
     public static void stringToBuffer(String str, ByteBuffer buffer) {
         byte[] bytes = str.getBytes();
         int i = 2;
-        begin:
-        for (byte b : bytes) {
-            try {
+        try {
+            for (byte b : bytes) {
                 buffer.put(i, b);
                 i++;
-            } catch (ArrayIndexOutOfBoundsException e) {
-                buffer = ByteBuffer.allocate(bytes.length + 2);
-                Main.logger.warning("stringToBuffer: Buffer not allocated!");
-                Commands.stringToBuffer(str, buffer);
             }
+            buffer.put(1, (byte) str.length());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            buffer = ByteBuffer.allocate(bytes.length + 2);
+            Main.logger.warning("stringToBuffer: Buffer not allocated!");
+            Commands.stringToBuffer(str, buffer);
         }
+
     }
 
     /**
@@ -51,16 +54,18 @@ public class Commands {
      * @return Decoded String from buffer
      */
     public static String stringFromBuffer(ByteBuffer buffer) {
-        int length = buffer.get(1);
+        byte length = buffer.get(1);
         byte[] bytes = new byte[length];
-        for (int i = 0; i < length; i++) {
-            try {
+        try {
+            for (int i = 0; i < length; i++) {
+
                 bytes[i] = buffer.get(i + 2);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                Main.logger.error("stringFromBuffer: Buffer not allocated!");
-                return null;
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Main.logger.error("stringFromBuffer: Buffer not allocated!");
+            return null;
         }
+
         return new String(bytes);
     }
 }

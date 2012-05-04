@@ -8,10 +8,14 @@ public class BruteforceManager {
     private int countIntervals;
     private int currentInterval;
 
+    private boolean bruteforceSuccess = false;
+
     /**
      * last password to bruteforce
      */
     private String lastPassword = "ZZZZZZ";
+
+    private String sha1Hash;
 
     public BruteforceManager(int countIntervals, String lastPassword) {
         this.countIntervals = countIntervals;
@@ -33,5 +37,15 @@ public class BruteforceManager {
 
     public void setLastPassword(String lastPassword) {
         this.lastPassword = lastPassword;
+    }
+
+    public String getSha1Hash() {
+        return sha1Hash;
+    }
+
+    public void setSha1Hash(String sha1Hash) {
+        if (!sha1Hash.equals(this.sha1Hash))
+            bruteforceSuccess = false;
+        this.sha1Hash = sha1Hash;
     }
 }
