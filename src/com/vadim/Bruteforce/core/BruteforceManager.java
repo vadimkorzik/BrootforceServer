@@ -5,7 +5,14 @@ package com.vadim.Bruteforce.core;
  */
 public class BruteforceManager {
 
+    /**
+     * Count of intervals
+     */
     private int countIntervals;
+
+    /**
+     * Current interval of passwords to send to clients for bruteforce
+     */
     private int currentInterval;
 
     private boolean bruteforceSuccess = false;
@@ -17,18 +24,16 @@ public class BruteforceManager {
 
     private String sha1Hash;
 
+    private String password = null;
+
     public BruteforceManager(int countIntervals, String lastPassword) {
         this.countIntervals = countIntervals;
         this.lastPassword = lastPassword;
         currentInterval = 0;
     }
 
-    public int getCurrentInterval() {
-        return currentInterval;
-    }
-
-    public void incCurrentInterval() {
-        currentInterval++;
+    public int getInterval() {
+        return ++currentInterval;
     }
 
     public boolean freeIntervals() {
@@ -47,5 +52,26 @@ public class BruteforceManager {
         if (!sha1Hash.equals(this.sha1Hash))
             bruteforceSuccess = false;
         this.sha1Hash = sha1Hash;
+    }
+
+    public int getCountIntervals() {
+        return countIntervals;
+    }
+
+    public String getLastPassword() {
+        return lastPassword;
+    }
+
+    public void success(String password) {
+        bruteforceSuccess = true;
+        this.password = password;
+    }
+
+    public boolean isSuccess() {
+        return bruteforceSuccess;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
