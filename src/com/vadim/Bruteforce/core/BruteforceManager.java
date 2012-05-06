@@ -78,4 +78,8 @@ public class BruteforceManager {
     public String getPassword() {
         return password;
     }
+
+    public void reset() {
+        currentInterval = 0;
+    }
 }

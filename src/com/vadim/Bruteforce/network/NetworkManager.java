@@ -69,7 +69,6 @@ public class NetworkManager extends Thread {
                     if ((key.readyOps() & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT) {
 
                         Socket socket = serverSocket.accept();
-
                         socketChannel = socket.getChannel();
                         socketChannel.configureBlocking(false);
                         socketChannel.register(selector, SelectionKey.OP_READ);
@@ -141,21 +140,22 @@ public class NetworkManager extends Thread {
         buffer.clear();
         sc.read(buffer);
         buffer.flip();
-        sc.getRemoteAddress();
+
         // If no data, close the connection
         if (buffer.limit() == 0) {
             return false;
         }
 
-        System.out.println(" >read: " + buffer.get(0) + " " + buffer.get(1) + " " + buffer.get(2));
+        commandHandler.process(buffer);
 
+        /*
+        System.out.println(" >read: " + buffer.get(0) + " " + buffer.get(1) + " " + buffer.get(2));
         buffer.put(0, (byte) 1);
         buffer.put(1, (byte) 2);
         buffer.put(2, (byte) 3);
-
         sc.write(buffer);
-
         System.out.println("Processed " + buffer.limit() + " from " + sc);
+        */
 
         return true;
     }
@@ -164,4 +164,5 @@ public class NetworkManager extends Thread {
     public void run() {
         this.openServer();
     }
+
 }
