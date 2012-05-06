@@ -10,6 +10,10 @@ import java.nio.ByteBuffer;
 public class CommandHandler {
     BruteforceManager bruteforceManager = null;
 
+    public CommandHandler(BruteforceManager bruteforceManager) {
+        this.bruteforceManager = bruteforceManager;
+    }
+
     public void setBruteforceManager(BruteforceManager bruteforceManager) {
         this.bruteforceManager = bruteforceManager;
     }
@@ -65,6 +69,7 @@ public class CommandHandler {
             }
 
         } catch (Exception ignored) {
+            // todo add catch
         }
         return true;
     }

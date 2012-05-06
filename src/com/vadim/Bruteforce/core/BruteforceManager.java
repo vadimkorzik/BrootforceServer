@@ -22,7 +22,7 @@ public class BruteforceManager {
      */
     private String lastPassword = "ZZZZZZ";
 
-    private String sha1Hash;
+    private String sha1Hash = "8fc6c915676049e2dddd2626b48725191d4064e2";
 
     private String password = null;
 
@@ -40,8 +40,12 @@ public class BruteforceManager {
         return currentInterval < countIntervals;
     }
 
-    public void setLastPassword(String lastPassword) {
-        this.lastPassword = lastPassword;
+    public boolean setLastPassword(String lastPassword) {
+        if (lastPassword.length() <= 127) {
+            this.lastPassword = lastPassword;
+            return true;
+        } else
+            return false;
     }
 
     public String getSha1Hash() {

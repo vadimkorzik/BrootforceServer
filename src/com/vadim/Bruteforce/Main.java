@@ -14,6 +14,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BruteforceManager bm = new BruteforceManager(150, "ZZZZZZ");
-        new Thread(new NetworkManager(bm)).start();
+        NetworkManager nm = new NetworkManager(bm);
+        nm.start();
     }
 }

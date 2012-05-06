@@ -17,27 +17,32 @@ import java.util.Iterator;
 /**
  * User: Vadim | Date: 14.04.12 | Time: 22:43
  */
-public class NetworkManager implements Runnable {
+public class NetworkManager extends Thread {
 
     public static final int BUFFER_SIZE = 1024;
     public static final int DEFAULT_PORT = 19191;
 
     private int port;
     private ServerSocketChannel serverSocketChannel;
-    Selector selector;
-    Logger log = new Logger();
-    BruteforceManager bruteforceManager;
+    private Selector selector;
+    private Logger log = new Logger();
+    private BruteforceManager bruteforceManager;
+    private CommandHandler commandHandler = null;
+
+    // todo add shutdown server
 
     private final ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
 
     public NetworkManager(BruteforceManager bruteforceManager) {
         port = DEFAULT_PORT;
         this.bruteforceManager = bruteforceManager;
+        commandHandler = new CommandHandler(this.bruteforceManager);
     }
 
     public NetworkManager(int port, BruteforceManager bruteforceManager) {
         this.port = port;
         this.bruteforceManager = bruteforceManager;
+        commandHandler = new CommandHandler(this.bruteforceManager);
     }
 
     public void openServer() {
@@ -136,7 +141,7 @@ public class NetworkManager implements Runnable {
         buffer.clear();
         sc.read(buffer);
         buffer.flip();
-
+        sc.getRemoteAddress();
         // If no data, close the connection
         if (buffer.limit() == 0) {
             return false;
