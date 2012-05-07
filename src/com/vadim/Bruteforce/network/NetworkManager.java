@@ -19,7 +19,7 @@ import java.util.Iterator;
  */
 public class NetworkManager extends Thread {
 
-    public static final int BUFFER_SIZE = 1024;
+    public static final int BUFFER_SIZE = 256;
     public static final int DEFAULT_PORT = 19191;
 
     private int port;
@@ -147,15 +147,7 @@ public class NetworkManager extends Thread {
         }
 
         commandHandler.process(buffer);
-
-        /*
-        System.out.println(" >read: " + buffer.get(0) + " " + buffer.get(1) + " " + buffer.get(2));
-        buffer.put(0, (byte) 1);
-        buffer.put(1, (byte) 2);
-        buffer.put(2, (byte) 3);
         sc.write(buffer);
-        System.out.println("Processed " + buffer.limit() + " from " + sc);
-        */
 
         return true;
     }

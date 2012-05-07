@@ -1,5 +1,6 @@
 package com.vadim.Bruteforce.network;
 
+import com.vadim.Bruteforce.Main;
 import com.vadim.Bruteforce.core.BruteforceManager;
 
 import java.nio.ByteBuffer;
@@ -26,20 +27,20 @@ public class CommandHandler {
 
             switch (command) {
                 case Commands.REQUEST_FOR_AUTHORIZATION:
-
+                    Main.logger.message("REQUEST_FOR_AUTHORIZATION from client");
                     break;
                 case Commands.REQUEST_FOR_COUNTINTERVALS:
 
                     byteBuffer.clear();
                     byteBuffer.putInt(1, bruteforceManager.getCountIntervals());
-
+                    Main.logger.message("REQUEST_FOR_COUNTINTERVALS from client");
                     break;
 
                 case Commands.REQUEST_FOR_LASTPASSWORD:
 
                     byteBuffer.clear();
                     Commands.stringToBuffer(bruteforceManager.getLastPassword(), byteBuffer);
-
+                    Main.logger.message("REQUEST_FOR_LASTPASSWORD from client");
                     break;
 
                 case Commands.REQUEST_FOR_INTERVAL:
@@ -51,20 +52,20 @@ public class CommandHandler {
                         byteBuffer.put(0, (byte) 0);
                         byteBuffer.putInt(1, bruteforceManager.getInterval());
                     }
-
+                    Main.logger.message("REQUEST_FOR_INTERVAL from client");
                     break;
 
                 case Commands.MESSAGE_OF_SUCCESSFUL_BRUTE:
 
                     bruteforceManager.success(Commands.stringFromBuffer(byteBuffer));
-
+                    Main.logger.message("MESSAGE_OF_SUCCESSFUL_BRUTE from client");
                     break;
 
                 case Commands.REQUEST_FOR_SHA1HASH:
 
                     byteBuffer.clear();
                     Commands.stringToBuffer(bruteforceManager.getSha1Hash(), byteBuffer);
-
+                    Main.logger.message("REQUEST_FOR_SHA1HASH from client");
                     break;
             }
 
