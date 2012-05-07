@@ -1,5 +1,7 @@
 package com.vadim.Bruteforce.core;
 
+import com.vadim.Bruteforce.Main;
+
 /**
  * User: Vadim | Date: 14.04.12 | Time: 21:52
  */
@@ -22,7 +24,7 @@ public class BruteforceManager {
      */
     private String lastPassword = "ZZZZZZ";
 
-    private String sha1Hash = "8fc6c915676049e2dddd2626b48725191d4064e2";
+    private String sha1Hash = "9865d483bc5a94f2e30056fc256ed3066af54d04";// "8fc6c915676049e2dddd2626b48725191d4064e2";
 
     private String password = null;
 
@@ -33,7 +35,7 @@ public class BruteforceManager {
     }
 
     public int getInterval() {
-        return ++currentInterval;
+        return currentInterval++;
     }
 
     public boolean freeIntervals() {
@@ -69,6 +71,7 @@ public class BruteforceManager {
     public void success(String password) {
         bruteforceSuccess = true;
         this.password = password;
+        Main.logger.message("Soccess brute: " + password);
     }
 
     public boolean isSuccess() {
@@ -82,4 +85,6 @@ public class BruteforceManager {
     public void reset() {
         currentInterval = 0;
     }
+
+
 }

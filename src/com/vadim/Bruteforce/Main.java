@@ -13,7 +13,7 @@ public class Main {
     public static final Logger logger = new Logger();
 
     public static void main(String[] args) throws IOException {
-        BruteforceManager bm = new BruteforceManager(150, "ZZZZZZ");
+        BruteforceManager bm = new BruteforceManager(100, "ZZZZ");
         NetworkManager nm = new NetworkManager(bm);
         nm.start();
     }

@@ -46,9 +46,10 @@ public class CommandHandler {
                 case Commands.REQUEST_FOR_INTERVAL:
 
                     byteBuffer.clear();
-                    if (bruteforceManager.isSuccess())
-                        byteBuffer.put(0, (byte) 1);
-                    else {
+                    if (bruteforceManager.isSuccess()) {
+                        byteBuffer.put(0, (byte) 0);
+                        byteBuffer.putInt(1, -1);
+                    } else {
                         byteBuffer.put(0, (byte) 0);
                         byteBuffer.putInt(1, bruteforceManager.getInterval());
                     }

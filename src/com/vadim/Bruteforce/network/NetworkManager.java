@@ -139,7 +139,7 @@ public class NetworkManager extends Thread {
     private boolean processInput(SocketChannel sc) throws IOException {
         buffer.clear();
         sc.read(buffer);
-        buffer.flip();
+        //buffer.flip();
 
         // If no data, close the connection
         if (buffer.limit() == 0) {
@@ -147,6 +147,7 @@ public class NetworkManager extends Thread {
         }
 
         commandHandler.process(buffer);
+
         sc.write(buffer);
 
         return true;
