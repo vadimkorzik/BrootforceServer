@@ -1,5 +1,6 @@
 package com.vadim.Bruteforce.core;
 
+import com.vadim.Bruteforce.GUI.MainGUI;
 import com.vadim.Bruteforce.Main;
 
 /**
@@ -28,9 +29,12 @@ public class BruteforceManager {
 
     private String password = null;
 
-    public BruteforceManager(int countIntervals, String lastPassword) {
+    MainGUI mainGUI;
+
+    public BruteforceManager(int countIntervals, String lastPassword, String sha1Hash) {
         this.countIntervals = countIntervals;
         this.lastPassword = lastPassword;
+        this.sha1Hash = sha1Hash;
         currentInterval = 0;
     }
 
@@ -42,22 +46,8 @@ public class BruteforceManager {
         return currentInterval < countIntervals;
     }
 
-    public boolean setLastPassword(String lastPassword) {
-        if (lastPassword.length() <= 127) {
-            this.lastPassword = lastPassword;
-            return true;
-        } else
-            return false;
-    }
-
     public String getSha1Hash() {
         return sha1Hash;
-    }
-
-    public void setSha1Hash(String sha1Hash) {
-        if (!sha1Hash.equals(this.sha1Hash))
-            bruteforceSuccess = false;
-        this.sha1Hash = sha1Hash;
     }
 
     public int getCountIntervals() {
@@ -72,6 +62,7 @@ public class BruteforceManager {
         bruteforceSuccess = true;
         this.password = password;
         Main.logger.message("Soccess brute: " + password);
+        mainGUI.success(password);
     }
 
     public boolean isSuccess() {
@@ -82,9 +73,7 @@ public class BruteforceManager {
         return password;
     }
 
-    public void reset() {
-        currentInterval = 0;
+    public void setMainGUI(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
-
-
 }

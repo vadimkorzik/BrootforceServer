@@ -45,15 +45,18 @@ public class CommandHandler {
 
                 case Commands.REQUEST_FOR_INTERVAL:
 
+                    int interval;
                     byteBuffer.clear();
                     if (bruteforceManager.isSuccess()) {
+                        interval = -1;
                         byteBuffer.put(0, (byte) 0);
                         byteBuffer.putInt(1, -1);
                     } else {
+                        interval = bruteforceManager.getInterval();
                         byteBuffer.put(0, (byte) 0);
-                        byteBuffer.putInt(1, bruteforceManager.getInterval());
+                        byteBuffer.putInt(1, interval);
                     }
-                    Main.logger.message("REQUEST_FOR_INTERVAL from client");
+                    Main.logger.message("REQUEST_FOR_INTERVAL from client: " + interval);
                     break;
 
                 case Commands.MESSAGE_OF_SUCCESSFUL_BRUTE:

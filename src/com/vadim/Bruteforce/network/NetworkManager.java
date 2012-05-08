@@ -1,6 +1,6 @@
 package com.vadim.Bruteforce.network;
 
-import com.vadim.Bruteforce.Logger;
+import com.vadim.Bruteforce.Main;
 import com.vadim.Bruteforce.core.BruteforceManager;
 
 import java.io.IOException;
@@ -25,11 +25,12 @@ public class NetworkManager extends Thread {
     private int port;
     private ServerSocketChannel serverSocketChannel;
     private Selector selector;
-    private Logger log = new Logger();
+    private ServerSocket serverSocket;
+    private SocketChannel socketChannel;
+
+
     private BruteforceManager bruteforceManager;
     private CommandHandler commandHandler = null;
-
-    // todo add shutdown server
 
     private final ByteBuffer buffer = ByteBuffer.allocate(BUFFER_SIZE);
 
@@ -53,8 +54,8 @@ public class NetworkManager extends Thread {
             serverSocketChannel.configureBlocking(false);
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
-            ServerSocket serverSocket = serverSocketChannel.socket();
-            SocketChannel socketChannel = null;
+            serverSocket = serverSocketChannel.socket();
+            socketChannel = null;
 
             while (true) {
                 int num = selector.select();
@@ -128,7 +129,27 @@ public class NetworkManager extends Thread {
     }
 
     public void closeServer() {
-        // TODO closeServer
+        try {
+            socketChannel.close();
+        } catch (Exception e) {
+            Main.logger.message("Can't close server");
+        }
+        try {
+            serverSocket.close();
+        } catch (Exception e) {
+            Main.logger.message("Can't close server");
+        }
+        try {
+            this.selector.close();
+        } catch (Exception e) {
+            Main.logger.message("Can't close server");
+        }
+        try {
+            this.serverSocketChannel.close();
+        } catch (Exception e) {
+            Main.logger.message("Can't close server");
+        }
+        Main.logger.message("Close server");
     }
 
     /**
@@ -136,10 +157,10 @@ public class NetworkManager extends Thread {
      *
      * @return successfully process
      */
+
     private boolean processInput(SocketChannel sc) throws IOException {
         buffer.clear();
         sc.read(buffer);
-        //buffer.flip();
 
         // If no data, close the connection
         if (buffer.limit() == 0) {
@@ -157,5 +178,4 @@ public class NetworkManager extends Thread {
     public void run() {
         this.openServer();
     }
-
 }
